@@ -62,13 +62,13 @@ namespace Demo
             #endregion
 
             #region Q6
-            Product p1 = new Product();
-            p1.Name = "Product 1";
-            Product p2 = new Product();
-            p2 = p1;
-            p2.Name = "Product 2";
-            Console.WriteLine(p1.Name);
-            Console.WriteLine(p2.Name);
+            //Product p1 = new Product();
+            //p1.Name = "Product 1";
+            //Product p2 = new Product();
+            //p2 = p1;
+            //p2.Name = "Product 2";
+            //Console.WriteLine(p1.Name);
+            //Console.WriteLine(p2.Name);
             #endregion
 
             #region Q7
@@ -80,15 +80,16 @@ namespace Demo
             #endregion
 
             #region Q8
+             //a
             #endregion
 
             #region Q9
             #endregion
-
+            // d) 6 1
 
             #region Q10
             #endregion
-
+            // d ) 7 7
         }
     }
 }
