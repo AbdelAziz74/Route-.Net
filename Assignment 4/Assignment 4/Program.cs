@@ -65,7 +65,6 @@ namespace Assignment
             #endregion
 
 
-
         }
 
 
@@ -131,6 +130,7 @@ public class Functions
         Console.WriteLine(maxx);
     }
 
+    // Function Q7
     public static long Factorial(int n)
     {
         long fact = 1;
