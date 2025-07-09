@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-
+            // Bad Time
             #region Q1 main
             //Employee emp = new Employee(10, "Abdel Aziz", 'A', Security.Developer, 700.50m, new DateTime(2025, 7, 9));
             //Console.WriteLine(emp.ToString());
