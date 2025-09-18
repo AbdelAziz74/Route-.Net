@@ -6,6 +6,7 @@ namespace MVC_03.DAL.Context
     public class CompanyDbContext : DbContext 
     {
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Employee> Employees { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CompanyDbContext).Assembly);
