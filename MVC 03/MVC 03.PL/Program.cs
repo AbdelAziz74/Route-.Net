@@ -11,9 +11,9 @@ namespace MVC_03.PL
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddScoped<DepartmentService>();
-            builder.Services.AddScoped<DepartmentRepository>();
-            builder.Services.AddScoped<CompanyDbContext>();
+            builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            //builder.Services.AddScoped<CompanyDbContext>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

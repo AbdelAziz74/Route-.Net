@@ -1,18 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC_03.BLL.Servecies;
+
 namespace MVC_03.PL.Controllers
 {
-    public class DepartmentController : Controller
+    public class DepartmentController (IDepartmentService departmentService) : Controller
     {
-        private DepartmentService _departmentService;
-
-        public DepartmentController(DepartmentService departmentService)
-          
-            => departmentService = departmentService;
-        
+        [HttpGet]
         public IActionResult Index()
+        {
+            var departments = departmentService.GetAll();
+            return View(departments);
+        }
+
+        public IActionResult Create()
         {
             return View();
         }
     }
+
+     
 }
