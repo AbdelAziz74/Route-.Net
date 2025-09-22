@@ -7,7 +7,7 @@ using MVC_03.DAL.Entities;
 
 namespace MVC_03.DAL.Repositories
 {
-    public interface IRepository<TEntity>
+    public interface IRepository<TEntity> where TEntity : BaseEntity
     {
         IEnumerable<TEntity> GetAll(bool trackChanges = false);
         TEntity? GetById(int id);
