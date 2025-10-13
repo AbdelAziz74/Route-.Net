@@ -1,0 +1,66 @@
+﻿
+
+
+using System;
+using System.Text.Json;
+
+namespace E_Commerce.Persistence.DbInitializers;
+
+
+internal class DbInitializer(ApplicationDbContext appDbContext)
+: IDbInitializer
+{
+    public async Task InitializeAsync()
+    {
+        try
+        {
+            
+            await appDbContext.Database.MigrateAsync();
+                                                       
+            if (!appDbContext.ProductBrands.Any())
+            {
+                var brandData = await File.ReadAllBytesAsync(@"..\Infrastructure\ECommerce.Persistance\Context\DataSeed\brands.json");
+                var brands = JsonSerializer.Deserialize<List<ProductBrand>>(brandData);
+                if (brands is not null && brands.Any())
+                {
+                    await appDbContext.ProductBrands.AddRangeAsync(brands); 
+                }
+                await appDbContext.SaveChangesAsync();
+            }
+            
+            if (!appDbContext.ProductTypes.Any())
+            {
+                var typesData = await File.ReadAllBytesAsync(@"..\Infrastructure\ECommerce.Persistance\Context\DataSeed\types.json");
+                var types = JsonSerializer.Deserialize<List<ProductType>>(typesData);
+                if (types is not null && types.Any())
+                {
+                    await appDbContext.ProductTypes.AddRangeAsync(types);
+                }
+                await appDbContext.SaveChangesAsync();
+
+            }
+
+            if (!appDbContext.Products.Any())
+            {
+                var productsData = await File.ReadAllBytesAsync(@"..\Infrastructure\ECommerce.Persistance\Context\DataSeed\products.json");
+                var products = JsonSerializer.Deserialize<List<Product>>(productsData);
+                if (products is not null && products.Any())
+                {
+                    await appDbContext.Products.AddRangeAsync(products); 
+                }
+                await appDbContext.SaveChangesAsync();
+            }
+
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+
+
+
+
+
+    }
+}
