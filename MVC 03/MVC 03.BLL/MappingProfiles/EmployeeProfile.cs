@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
-namespace MVC_03.BLL.MappingProfiles
+using MVC_03.DAL.Entities;
+
+namespace MVC_03.BLL.MappingProfiles;
+
+internal class EmployeeProfile : Profile
 {
-    internal class EmployeeProfile
+    public EmployeeProfile()
     {
+        CreateMap<EmployeeRequest, Employee>();
+        CreateMap<EmployeeUpdateRequest, Employee>();
+        CreateMap<Employee, EmployeeDetailsResponse>();
+        
     }
 }

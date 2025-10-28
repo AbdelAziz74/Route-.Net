@@ -11,7 +11,12 @@ namespace MVC_03.DAL.Context.Configurations
                 .UseIdentityColumn(10, 10);
             builder.Property(e => e.Name)
                 .HasMaxLength(50)
-                .IsRequired(true)
+                .IsRequired(true);
+
+                  builder.Property(e => e.Image)
+                .HasMaxLength(50)
+                .IsRequired(false)
+
                 .HasColumnType("NVarChar");
             builder.Property(e => e.Age)
                 .IsRequired(false);

@@ -19,6 +19,6 @@ namespace MVC_03.DAL.Entities
         public Gender Gender { get; set; }
 
         public EmployeeType EmployeeType { get; set; }
-
+        public object Image { get; internal set; }
     }
 }

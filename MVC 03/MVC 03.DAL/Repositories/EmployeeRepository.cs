@@ -12,6 +12,8 @@ namespace MVC_03.DAL.Repositories
     public class EmployeeRepository(CompanyDbContext context) : IRepository<Employee>
     {
         private DbSet<Employee> _employees = context.Employees;
+        private object _dbSet;
+
         public IEnumerable<Employee> GetAll(bool trackChanges = false)
             => trackChanges
                 ? _employees.ToList()
@@ -42,5 +44,10 @@ namespace MVC_03.DAL.Repositories
             }
             return 0;
         }
+        public IQueryable<Employee> GetAllAsQueryable()
+        {
+            return _dbSet.Where(x => !x.IsDeleted);
+        }
+          
     }
 }
