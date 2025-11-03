@@ -9,8 +9,9 @@ namespace MVC_03.BLL.Servecies
     public class DocumentService : IDocumentService
     {
         private List<string> _allowedExtensions = [".png", ".jpeg", ".jpg"];
+        private const int MAX_SIZE = 2_097_152;
 
-        public async Task<string?> UploadAsync(IFormFile file, string folderName)
+       public async Task<string?> UploadAsync(IFormFile file, string folderName)
         {
             var extemsion = Path.GetExtension(file.FileName);
             if (!_allowedExtensions.Contains(extemsion))
@@ -26,6 +27,14 @@ namespace MVC_03.BLL.Servecies
             await file.CopyToAsync(fileStream);
 
             return fileName;
+        }
+        public bool Delete(string fileName, string folderName)
+        {
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Data", folderName, fileName);
+            if (!File.Exists(filePath))
+                return false;
+            File.Delete(filePath);
+            return true;
         }
     }
 }

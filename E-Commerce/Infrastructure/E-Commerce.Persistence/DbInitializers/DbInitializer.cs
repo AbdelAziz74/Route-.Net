@@ -19,7 +19,7 @@ internal class DbInitializer(ApplicationDbContext appDbContext)
                                                        
             if (!appDbContext.ProductBrands.Any())
             {
-                var brandData = await File.ReadAllBytesAsync(@"..\Infrastructure\ECommerce.Persistance\Context\DataSeed\brands.json");
+                var brandData = await File.ReadAllBytesAsync(@"..\Infrastructure\E-Commerce.Persistence\Context\DataSeed\brands.json");
                 var brands = JsonSerializer.Deserialize<List<ProductBrand>>(brandData);
                 if (brands is not null && brands.Any())
                 {
@@ -30,7 +30,7 @@ internal class DbInitializer(ApplicationDbContext appDbContext)
             
             if (!appDbContext.ProductTypes.Any())
             {
-                var typesData = await File.ReadAllBytesAsync(@"..\Infrastructure\ECommerce.Persistance\Context\DataSeed\types.json");
+                var typesData = await File.ReadAllBytesAsync(@"..\Infrastructure\E-Commerce.Persistence\Context\DataSeed\types.json");
                 var types = JsonSerializer.Deserialize<List<ProductType>>(typesData);
                 if (types is not null && types.Any())
                 {
@@ -42,7 +42,7 @@ internal class DbInitializer(ApplicationDbContext appDbContext)
 
             if (!appDbContext.Products.Any())
             {
-                var productsData = await File.ReadAllBytesAsync(@"..\Infrastructure\ECommerce.Persistance\Context\DataSeed\products.json");
+                var productsData = await File.ReadAllBytesAsync(@"..\Infrastructure\E-Commerce.Persistence\Context\DataSeed\products.json");
                 var products = JsonSerializer.Deserialize<List<Product>>(productsData);
                 if (products is not null && products.Any())
                 {

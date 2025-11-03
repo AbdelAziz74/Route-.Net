@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.20">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -16,12 +17,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="NewFolder\" />
+    <ProjectReference Include="..\Infrastructure\E-Commerce.Persistence\E-Commerce.Persistence.csproj" />
+    <ProjectReference Include="..\Infrastructure\E-Commerce.Presentation\E-Commerce.Presentation.API.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Infrastructure\E-Commerce.Persistence\E-Commerce.Persistence.csproj" />
-    <ProjectReference Include="..\Infrastructure\E-Commerce.Presentation\E-Commerce.Presentation.API.csproj" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
