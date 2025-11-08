@@ -9,14 +9,14 @@ public class ProductsController(IProductService service)
 {
     // Get All (filtration, search, order, pagination)
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ProductResponse>>> GetProducts(CancellationToken cancellationToken = default)
+    public async Task<ActionResult<IEnumerable<ProductResponse>>> GetProducts([FromQuery]ProductQueryParameters parameters,CancellationToken cancellationToken = default)
     {
-        var response = await service.GetProductsAsync(cancellationToken);
+        var response = await service.GetProductsAsync(parameters, cancellationToken);
         return Ok(response);
     }
     // Get By Id(int id)
     [HttpGet("{id}")]
-    public async Task<ActionResult<ProductResponse>> Get(int id, CancellationToken cancellationToken = default)
+    public async Task<ActionResult<ProductResponse>> GetProduct(int id, CancellationToken cancellationToken = default)
     {
         var response = await service.GetByIdAsync(id, cancellationToken);
         return Ok(response);

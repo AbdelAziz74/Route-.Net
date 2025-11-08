@@ -1,26 +1,41 @@
 ﻿global using E_Commerce.Domain.Entities;
-
+using E_Commerce.Service.Specifications;
 namespace E_Commerce.Persistence.Repositories
 {
     internal class Repository<TEntity, TKey>(ApplicationDbContext dbContext) :
         IRepository<TEntity, TKey>
         where TEntity : Entity<TKey>
     {
+        private readonly DbSet<TEntity> _dbSet = dbContext.Set<TEntity>();
         public void Add(TEntity entity) 
-            =>dbContext.Set<TEntity>().Add(entity);
-        
-
+            => _dbSet.Add(entity);
+       
         public async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken = default)
-           =>  await dbContext.Set<TEntity>().ToListAsync(cancellationToken);
+           =>  await _dbSet.ToListAsync(cancellationToken);
 
         public async Task<TEntity?> GetByIdAsync(TKey id, CancellationToken cancellationToken = default)
-            => await dbContext.Set<TEntity>().FindAsync(id,cancellationToken);
+            => await _dbSet.FindAsync(id,cancellationToken);
 
         public void Remove(TEntity entity)
-            =>dbContext.Set<TEntity>().Remove(entity);
-        
-
+            => _dbSet.Remove(entity);
         public void Update(TEntity entity)
-            =>dbContext.Set<TEntity>().Update(entity);
+            => _dbSet.Update(entity);
+        public async Task<IEnumerable<TEntity>>
+            GetAllAsync(ISpecification<TEntity> specification, CancellationToken cancellationToken = default)
+        {
+            return await _dbSet.ApplySpecification(specification).ToListAsync(cancellationToken);
+        }
+
+        public async Task<TEntity?> GetAsync(ISpecification<TEntity> specification, CancellationToken cancellationToken = default)
+        {
+            return await _dbSet.ApplySpecification(specification)
+                .FirstOrDefaultAsync(cancellationToken);
+        }
+
+        public async Task<int> CountAsync(ISpecification<TEntity> specification, CancellationToken cancellationToken = default)
+        {
+            return await _dbSet.ApplySpecification(specification)
+                .CountAsync(cancellationToken);
+        }
     }
 }

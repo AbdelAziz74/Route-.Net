@@ -15,6 +15,9 @@ internal class UnitOfWork(ApplicationDbContext dbContext)
         return repo;
     }
 
+  public IRepository<TEntity, int> GetRepository<TEntity>() where TEntity : Entity<int>  
+        => GetRepository<TEntity, int>();
+  
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)   
         => await dbContext.SaveChangesAsync(cancellationToken);
 

@@ -1,4 +1,6 @@
 ﻿using E_Commerce.Domain.Entities.Products;
+using E_Commerce.Service.Specifications;
+using E_Commerce.Shared.DataTransfererObjects;
 
 namespace E_Commerce.Service.Services;
 
@@ -15,15 +17,21 @@ internal class ProductService(IUnitOfWork unitOfWork, IMapper mapper)
     public async Task<ProductResponse?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     {
         var product = await unitOfWork.GetRepository<Product, int>()
-            .GetByIdAsync(id, cancellationToken);
+            .GetAsync(new ProductWithBrandTypeSepcification(id)  , cancellationToken);
         return mapper.Map<ProductResponse?>(product);
     }
 
-    public async Task<IEnumerable<ProductResponse>> GetProductsAsync(CancellationToken cancellationToken = default)
+    public async Task<PaginatedResult<ProductResponse>> GetProductsAsync(ProductQueryParameters parameters, CancellationToken cancellationToken = default)
     {
-        var products = await unitOfWork.GetRepository<Product, int>()
-            .GetAllAsync(cancellationToken);
-        return mapper.Map<IEnumerable<ProductResponse>>(products);
+        var spec = new ProductWithBrandTypeSepcification(parameters);
+        var data = await unitOfWork.GetRepository<Product, int>()
+            .GetAllAsync(spec,cancellationToken);
+
+        var totalCount = await unitOfWork.GetRepository<Product, int>()
+            .CountAsync(new ProductCountSpecification(parameters), cancellationToken);
+
+        var products = mapper.Map<IEnumerable<ProductResponse>>(data);
+        return new(parameters.PageIndex, products.Count(), totalCount, products);
     }
 
     public async Task<IEnumerable<TypeResponse>> GetTypesAsync(CancellationToken cancellationToken = default)
